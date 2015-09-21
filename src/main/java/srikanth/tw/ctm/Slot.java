@@ -1,5 +1,8 @@
 package srikanth.tw.ctm;
 
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_DURATION;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_DURATION_UNIT;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_NAME;
 import static srikanth.tw.ctm.util.Constant.NEW_LINE;
 
 import java.util.ArrayList;
@@ -31,12 +34,16 @@ public class Slot {
 		return remainingDuration >= event.getDurationInMinutes();
 	}
 
+	public void addNetworkingEvent() {
+		events.add(new Event(NETWORKING_EVENT_NAME, NETWORKING_EVENT_DURATION,
+				NETWORKING_EVENT_DURATION_UNIT));
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		int nextEventStartTime = startTime;
 		for (Event event : events) {
-			// TODO(srikanth): Add the networking session no earlier than 4pm and no later than 5pm.
 			str.append(Time.minutesToDisplayTime(nextEventStartTime) + " " + event + NEW_LINE);
 			nextEventStartTime += event.getDurationInMinutes();
 		}

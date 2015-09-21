@@ -1,14 +1,23 @@
 package srikanth.tw.ctm;
 
+import static srikanth.tw.ctm.util.Config.AFTERNOON_SLOT_DURATION;
+import static srikanth.tw.ctm.util.Config.AFTERNOON_SLOT_START_TIME;
+import static srikanth.tw.ctm.util.Config.EVENT_DURATION_INDEX;
+import static srikanth.tw.ctm.util.Config.EVENT_DURATION_UNIT_INDEX;
+import static srikanth.tw.ctm.util.Config.EVENT_NAME_INDEX;
+import static srikanth.tw.ctm.util.Config.LUNCH_SLOT_DURATION;
+import static srikanth.tw.ctm.util.Config.LUNCH_SLOT_START_TIME;
+import static srikanth.tw.ctm.util.Config.MAX_EVENT_DURATION;
+import static srikanth.tw.ctm.util.Config.MORNING_SLOT_DURATION;
+import static srikanth.tw.ctm.util.Config.MORNING_SLOT_START_TIME;
+import static srikanth.tw.ctm.util.Config.INPUT_LINE_PATTERN;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import srikanth.tw.ctm.util.Logger;
 
@@ -17,22 +26,6 @@ public final class ConferenceScheduler {
 	private ConferenceScheduler() {}
 
 	private static Logger logger = Logger.getLogger();
-	private static Pattern inputLinePattern = Pattern.compile(
-			"^(.+)\\s(\\d+)?\\s?((min)|(lightning))$");
-	private static int EVENT_NAME_INDEX = 1;
-	private static int EVENT_DURATION_INDEX = 2;
-	private static int EVENT_DURATION_UNIT_MATCH = 3;
-
-	private static int MORNING_SLOT_DURATION = 180;
-	private static int LUNCH_SLOT_DURATION = 60;
-	private static int AFTERNOON_SLOT_DURATION = 240;
-
-	private static int MORNING_SLOT_START_TIME = 9 * 60;
-	private static int LUNCH_SLOT_START_TIME = MORNING_SLOT_START_TIME + MORNING_SLOT_DURATION;
-	private static int AFTERNOON_SLOT_START_TIME = LUNCH_SLOT_START_TIME + LUNCH_SLOT_DURATION;
-
-	private static int MAX_EVENT_DURATION = Collections.max(Arrays.asList(
-			MORNING_SLOT_DURATION, LUNCH_SLOT_DURATION, AFTERNOON_SLOT_DURATION));
 
 	public static Conference schedule(BufferedReader input) throws IOException {
 		List<Event> events = new ArrayList<Event>();
@@ -53,6 +46,7 @@ public final class ConferenceScheduler {
 			lunchSlot.addEvent(new Event("Lunch", LUNCH_SLOT_DURATION, DurationUnit.MINUTES));
 			Slot afternoonSlot = new Slot(AFTERNOON_SLOT_DURATION, AFTERNOON_SLOT_START_TIME);
 			fillSlotWithEvents(afternoonSlot, events);
+			afternoonSlot.addNetworkingEvent();
 			Track track = new Track();
 			track.addSlot(morningSlot);
 			track.addSlot(lunchSlot);
@@ -78,14 +72,14 @@ public final class ConferenceScheduler {
 			return null;
 		}
 
-		Matcher match = inputLinePattern.matcher(line);
+		Matcher match = INPUT_LINE_PATTERN.matcher(line);
 		if (match.find() == false) {
 			logger.warn("Invalid input line: " + line);
 			return null;
 		}
 
 		DurationUnit unit;
-		if (match.group(EVENT_DURATION_UNIT_MATCH).equalsIgnoreCase("min")) {
+		if (match.group(EVENT_DURATION_UNIT_INDEX).equalsIgnoreCase("min")) {
 			unit = DurationUnit.MINUTES;
 		} else {
 			unit = DurationUnit.LIGHTENING;
