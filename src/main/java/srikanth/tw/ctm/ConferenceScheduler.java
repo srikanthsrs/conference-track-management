@@ -26,12 +26,11 @@ import java.util.regex.Matcher;
 import srikanth.tw.ctm.util.Logger;
 
 public final class ConferenceScheduler {
-	// TODO(srikanth): See if this class can be converted in to non-static.
-	private ConferenceScheduler() {}
+	public ConferenceScheduler() {}
 
 	private static Logger logger = Logger.getLogger();
 
-	public static Conference schedule(BufferedReader input) throws IOException {
+	public Conference schedule(BufferedReader input) throws IOException {
 		List<Event> events = new ArrayList<Event>();
 		for (String line; (line = input.readLine()) != null;) {
 			line = line.trim();

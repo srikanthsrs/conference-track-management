@@ -9,10 +9,10 @@ import srikanth.tw.ctm.util.Logger;
 
 public class ConferenceSchedulerMain {
 	// TODO(srikanth): Add acceptance tests.
-	// TODO(srikanth): Add unit tests.
-	// TODO(srikanth): Add build script.
 	// TODO(srikanth): Add README.md file.
-	// TODO(srikanth): Add javadoc.
+	// TODO(srikanth): Expand javadoc.
+	// TODO(srikanth): Expand unit tests.
+	// TODO(srikanth): Expand acceptance tests.
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger();
 
@@ -24,7 +24,7 @@ public class ConferenceSchedulerMain {
 		File inputFile = new File(args[0]);
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-			Conference conference = ConferenceScheduler.schedule(reader);
+			Conference conference = new ConferenceScheduler().schedule(reader);
 			logger.info(conference);
 		} catch (IOException e) {
 			logger.fatal("Cannot read from input file: " + inputFile.getAbsolutePath());
