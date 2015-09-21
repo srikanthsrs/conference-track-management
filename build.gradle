@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'srikanth.tw.ctm.ConferenceSchedulerMain'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
