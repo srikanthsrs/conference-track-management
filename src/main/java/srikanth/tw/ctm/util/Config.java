@@ -31,4 +31,5 @@ public final class Config {
 	public static final String NETWORKING_EVENT_NAME = "Networking Event";
 	public static final int NETWORKING_EVENT_DURATION = 60;
 	public static final DurationUnit NETWORKING_EVENT_DURATION_UNIT = DurationUnit.MINUTES;
+	public static final int NETWORKING_EVENT_MIN_START_TIME = (12 * 60) + (4 * 60); // 4 PM.
 }

@@ -8,9 +8,11 @@ import java.io.IOException;
 import srikanth.tw.ctm.util.Logger;
 
 public class ConferenceSchedulerMain {
-	// TODO(srikanth): Add javadoc.
 	// TODO(srikanth): Add acceptance tests.
 	// TODO(srikanth): Add unit tests.
+	// TODO(srikanth): Add build script.
+	// TODO(srikanth): Add README.md file.
+	// TODO(srikanth): Add javadoc.
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger();
 

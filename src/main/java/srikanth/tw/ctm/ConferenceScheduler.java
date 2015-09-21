@@ -5,12 +5,16 @@ import static srikanth.tw.ctm.util.Config.AFTERNOON_SLOT_START_TIME;
 import static srikanth.tw.ctm.util.Config.EVENT_DURATION_INDEX;
 import static srikanth.tw.ctm.util.Config.EVENT_DURATION_UNIT_INDEX;
 import static srikanth.tw.ctm.util.Config.EVENT_NAME_INDEX;
+import static srikanth.tw.ctm.util.Config.INPUT_LINE_PATTERN;
 import static srikanth.tw.ctm.util.Config.LUNCH_SLOT_DURATION;
 import static srikanth.tw.ctm.util.Config.LUNCH_SLOT_START_TIME;
 import static srikanth.tw.ctm.util.Config.MAX_EVENT_DURATION;
 import static srikanth.tw.ctm.util.Config.MORNING_SLOT_DURATION;
 import static srikanth.tw.ctm.util.Config.MORNING_SLOT_START_TIME;
-import static srikanth.tw.ctm.util.Config.INPUT_LINE_PATTERN;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_DURATION;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_DURATION_UNIT;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_MIN_START_TIME;
+import static srikanth.tw.ctm.util.Config.NETWORKING_EVENT_NAME;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +50,12 @@ public final class ConferenceScheduler {
 			lunchSlot.addEvent(new Event("Lunch", LUNCH_SLOT_DURATION, DurationUnit.MINUTES));
 			Slot afternoonSlot = new Slot(AFTERNOON_SLOT_DURATION, AFTERNOON_SLOT_START_TIME);
 			fillSlotWithEvents(afternoonSlot, events);
-			afternoonSlot.addNetworkingEvent();
+			Event networkingEvent = new Event(NETWORKING_EVENT_NAME, NETWORKING_EVENT_DURATION,
+					NETWORKING_EVENT_DURATION_UNIT);
+			Slot networkingSlot = new Slot(networkingEvent.getDurationInMinutes(),
+					NETWORKING_EVENT_MIN_START_TIME);
+			networkingSlot.addEvent(networkingEvent);
+			afternoonSlot.addSupplementSlot(networkingSlot);
 			Track track = new Track();
 			track.addSlot(morningSlot);
 			track.addSlot(lunchSlot);
