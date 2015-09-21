@@ -1,7 +1,7 @@
 package srikanth.tw.ctm.util;
 
 public final class Constant {
-	private Constant() {}
+    private Constant() {}
 
-	public static final String NEW_LINE = System.getProperty("line.separator");
+    public static final String NEW_LINE = System.getProperty("line.separator");
 }
