@@ -35,6 +35,7 @@ public class Slot {
 	}
 
 	public void addNetworkingEvent() {
+		// TODO(srikanth): Bug: Start networking event after 4 and before 5.
 		events.add(new Event(NETWORKING_EVENT_NAME, NETWORKING_EVENT_DURATION,
 				NETWORKING_EVENT_DURATION_UNIT));
 	}
