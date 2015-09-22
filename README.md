@@ -45,7 +45,7 @@ System.out.println(conference);
 #### Conference
 
 * A `Conference` object currently only returns the schedule as a string via its `toString()`
-  method. This also be be easily extended to return the schedule as a list of `Track`s
+  method. This also can be easily extended to return the schedule as a list of `Track`s
 
 #### Track
 

@@ -10,13 +10,28 @@ import srikanth.tw.ctm.util.FileUtil;
 
 public class ConferenceTrackManagementTest {
     @Test
-    public void testConferenceTrackManagement() throws IOException {
-    	String[] inputFiles = { "/input_file", "/input_file_less_events" };
-    	for (String inputFile : inputFiles) {
-    		String expectedOutputFile = inputFile + "_expected";
-        	Conference conference = new ConferenceScheduler().schedule(
-        			FileUtil.getBufferedReaderForResourceFile(inputFile, this));
-        	assertTrue(FileUtil.contentEquals(expectedOutputFile, conference.toString(), this));
-        }
+    public void testConferenceTrackManagementMultipleFullDayEvents() throws IOException {
+    	testConferenceTrackManagement("/input_file");
+    }
+
+    @Test
+    public void testConferenceTrackManagementMultipleDayLessEvents() throws IOException {
+    	testConferenceTrackManagement("/input_file_less_events");
+    }
+
+    @Test
+    public void testConferenceTrackManagementSingleDayEvents() throws IOException {
+    	testConferenceTrackManagement("/input_file_single_day_events");
+    }
+
+    private void testConferenceTrackManagement(String inputFile) throws IOException {
+    	Conference conference = new ConferenceScheduler().schedule(
+    			FileUtil.getBufferedReaderForResourceFile(inputFile, this));
+    	assertTrue(FileUtil.contentEquals(getExpectedOutputFile(inputFile),
+    			conference.toString(), this));
+    }
+
+    private String getExpectedOutputFile(String inputFile) {
+    	return inputFile + "_expected";
     }
 }
